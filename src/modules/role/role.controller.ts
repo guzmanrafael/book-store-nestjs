@@ -8,40 +8,43 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { Role } from './role.entity';
+import { CreateRoleDto, ReadRoleDto, UpdateRoleDto } from './dtos';
 import { RoleService } from './role.service';
 
 @Controller('roles')
 export class RoleController {
   constructor(private readonly _roleService: RoleService) {}
 
-  @Get(':id')
-  async getRole(@Param('id', ParseIntPipe) id: number): Promise<Role> {
-    const role = await this._roleService.get(id);
+  @Get(':roleId')
+  getRole(@Param('roleId', ParseIntPipe) roleId: number): Promise<ReadRoleDto> {
+    const role = this._roleService.get(roleId);
     return role;
   }
 
   @Get()
-  async getRoles(): Promise<Role[]> {
-    const roles = await this._roleService.getAll();
+  getRoles(): Promise<ReadRoleDto[]> {
+    const roles = this._roleService.getAll();
     return roles;
   }
 
   @Post()
-  async createRole(@Body() role: Role): Promise<Role> {
-    const createdRole = await this._roleService.create(role);
+  createRole(@Body() role: Partial<CreateRoleDto>): Promise<ReadRoleDto> {
+    const createdRole = this._roleService.create(role);
     return createdRole;
   }
 
-  @Patch(':id')
-  async updateRole(@Param('id', ParseIntPipe) id: number, @Body() role: Role) {
-    const updatedRole = await this._roleService.update(id, role);
+  @Patch(':roleId')
+  async updateRole(
+    @Param('roleId', ParseIntPipe) roleId: number,
+    @Body() role: Partial<UpdateRoleDto>,
+  ): Promise<ReadRoleDto> {
+    const updatedRole = await this._roleService.update(roleId, role);
     return updatedRole;
   }
 
-  @Delete(':id')
-  async deleteRole(@Param('id', ParseIntPipe) id: number) {
-    await this._roleService.delete(id);
+  @Delete(':roleId')
+  async deleteRole(@Param('roleId', ParseIntPipe) roleId: number) {
+    await this._roleService.delete(roleId);
     return true;
   }
 }
