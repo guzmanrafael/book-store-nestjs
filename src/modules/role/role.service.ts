@@ -64,7 +64,6 @@ export class RoleService {
     foundRole.description = role.description;
 
     const updatedRole: Role = await this._roleRepository.save(foundRole);
-
     return plainToClass(ReadRoleDto, updatedRole);
   }
 

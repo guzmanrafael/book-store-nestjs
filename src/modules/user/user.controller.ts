@@ -13,7 +13,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../role/decorators/role.decorator';
 import { RoleGuard } from '../role/guards/role.guard';
 import { RoleType } from '../role/roletype.enum';
-import { ReadUserDto } from './dto';
+import { ReadUserDto } from './dtos';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 

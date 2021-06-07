@@ -10,20 +10,20 @@ import {
 } from 'typeorm';
 import { User } from '../user/user.entity';
 
-@Entity('roles')
-export class Role extends BaseEntity {
+@Entity('books')
+export class Book extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ type: 'varchar', length: 20, nullable: false })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   name: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'varchar', length: 500, nullable: false })
   description: string;
 
-  @ManyToMany((type) => User, (user) => user.roles)
+  @ManyToMany((type) => User, (user) => user.books, { eager: true })
   @JoinColumn()
-  users: User[];
+  authors: User[];
 
   @Column({ type: 'varchar', default: 'ACTIVE', length: 8 })
   status: string;
@@ -33,10 +33,4 @@ export class Role extends BaseEntity {
 
   @UpdateDateColumn({ type: 'timestamp', name: 'updated_at' })
   updatedAt: Date;
-
-  constructor(name: string, description: string) {
-    super();
-    this.name = name;
-    this.description = description;
-  }
 }

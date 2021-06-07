@@ -4,7 +4,7 @@ import { RoleRepository } from '../role/role.repository';
 import { RoleType } from '../role/roletype.enum';
 import { UserDetails } from '../user/user.details.entity';
 import { User } from '../user/user.entity';
-import { SignUpDto } from './dto';
+import { SignUpDto } from './dtos';
 import { genSalt, hash } from 'bcryptjs';
 
 @EntityRepository(User)
